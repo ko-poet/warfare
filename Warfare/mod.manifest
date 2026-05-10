@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<kcd_mod>
+  <info>
+    <name>Warfare</name>
+    <modid>warfare</modid>
+    <description></description>
+    <author>Sadge</author>
+    <version>0.3</version>
+  </info>
+</kcd_mod>

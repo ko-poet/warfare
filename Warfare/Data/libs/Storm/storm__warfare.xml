@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<storm>
+	<tasks>
+		<task name="appearance" class="appearance">
+			<source path="appearance\warfareappearance.xml" />
+		</task>
+
+	</tasks>
+</storm>
