@@ -7,29 +7,30 @@
 			<Variable name="fight" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="mrkev" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="target" type="_wuid" values="" isPersistent="0" form="single" />
+			<Variable name="visorDown" type="_bool" values="false" isPersistent="0" form="single" />
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
 				<SuppressFailure>
 					<Sequence>
-						<ExecuteLua code="data.fight = Warfare.fight" />
+						<ExecuteLua code="data.fight = Warfare.fight &#10;data.visorDown = entity.Properties.WarfareProperties.visor" />
+						<IfCondition failOnCondition="false" condition="$visorDown">
+							<Sequence>
+								<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="87643362" />
+								<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_visor&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
+								<ExecuteLua code="entity.Properties.WarfareProperties.visor = false &#10;data.visorDown = false" />
+							</Sequence>
+						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$fight">
 							<EntityContextCheck context="crime_interruptAttack" target="$this.id" saveVersion="2">
 								<Else canSkip="1">
 									<Sequence>
 										<Expression expressions="$target = $__null" />
-										<ExecuteLua code="data.target = Warfare:getClosestTarget(entity).this.id" />
+										<ExecuteLua code="data.target = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities).this.id" />
 										<IfCondition failOnCondition="false" condition="$target ~= $__null">
 											<Sequence>
 												<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="25225112" />
-												<CreateInformationWrapper Label="&apos;assault&apos;" PerceivedWuid="$this.id" PositionType="positionWuid" PositionVec3="" PositionWuid="$target" Information="$crimeInformation" />
-												<LockDynamicInformationValues Information="$crimeInformation">
-													<SetDynamicInformationValue Information="$crimeInformation" Tag="&apos;stimulusKind&apos;" Variable="$enum:crime_stimulusKind.combat" Type="" Value="" />
-												</LockDynamicInformationValues>
-												<SuppressFailure>
-													<Function_crime_limits_reserveReactionLink ffCrimeIcon="false" information="$crimeInformation" priority="160" reactionKind="$enum:crime_reactionKind.attack" nodeLabel="56862791" />
-												</SuppressFailure>
-												<Expression expressions="$attackData.target = $target &#10;$attackData.information = $crimeInformation &#10;$attackData.stimulusKind = $enum:crime_stimulusKind.combat &#10;$attackData.previousReaction = $enum:crime_reactionKind.unknown &#10;$attackData.initiatedBy = $enum:switch_interruptInitiator.switch &#10;$attackData.defenceMode = false &#10;$attackData.relationOverride = true &#10;$attackData.source = $enum:crime_source.direct &#10;$attackData.freshlyAttributedCrime = false &#10;$attackData.criminalFreshness = $enum:crime_criminalFreshness.unknown &#10;$attackData.escalatedFromFailedSurrender = false" />
+												<Expression expressions="$attackData.target = $target" />
 												<AddInterrupt_attack attackData="$attackData" Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_attack&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
 											</Sequence>
 										</IfCondition>
@@ -37,7 +38,7 @@
 								</Else>
 							</EntityContextCheck>
 						</IfCondition>
-						<Wait duration="&apos;500&apos;" timeType="GameTime" doFail="false" variation="&apos;100&apos;" />
+						<Wait duration="&apos;200&apos;" timeType="GameTime" doFail="false" variation="&apos;50&apos;" />
 					</Sequence>
 				</SuppressFailure>
 			</Behavior>
@@ -50,6 +51,7 @@
 				<Variable name="fight" comment="" />
 				<Variable name="mrkev" comment="" />
 				<Variable name="target" comment="" />
+				<Variable name="visorDown" comment="" />
 			</Variables>
 			<ForwardDeclarations />
 			<Root editorPosX="-910" editorPosY="150" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -62,6 +64,21 @@
 							<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 							</ExecuteLua>
+							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Function_crime_getMrkev>
+									<AddInterrupt hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</AddInterrupt>
+									<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</ExecuteLua>
+								</Sequence>
+							</IfCondition>
 							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
 								<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
@@ -82,21 +99,6 @@
 													<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Function_crime_getMrkev>
-													<CreateInformationWrapper hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</CreateInformationWrapper>
-													<LockDynamicInformationValues hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<SetDynamicInformationValue hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</SetDynamicInformationValue>
-													</LockDynamicInformationValues>
-													<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-														<Function_crime_limits_reserveReactionLink hasInputBreakpoint="0" comment="" breakpointFlags="0">
-															<OutputBreakpoints />
-														</Function_crime_limits_reserveReactionLink>
-													</SuppressFailure>
 													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Expression>
@@ -118,7 +120,8 @@
 			</Root>
 			<Forest />
 			<Comments>
-				<Comment text="call_attack" posX="440" posY="-160" width="920" height="937" resizeBorderWidth="920" resizeBorderHeight="910" color="0.65,0.65,0.65" author="Admin" />
+				<Comment text="call_attack" posX="440" posY="180" width="440" height="497" resizeBorderWidth="440" resizeBorderHeight="470" color="0.65,0.65,0.65" author="Admin" />
+				<Comment text="visor_down" posX="-170" posY="-160" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
 			</Comments>
 		</EditorData>
 	</BehaviorTree>

@@ -1,0 +1,60 @@
+<Table>
+    <Row>
+        <Cell>ui_keybinds_group_warfare</Cell>
+        <Cell>Warfare</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_preview</Cell>
+        <Cell>Toggle Preview</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_fight</Cell>
+        <Cell>Toggle Battle</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_spawn</Cell>
+        <Cell>Spawn</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_despawn</Cell>
+        <Cell>Despawn</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_changeType</Cell>
+        <Cell>Change Soldier Type</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_changeCoat</Cell>
+        <Cell>Change Coat of Arms</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_warfare_changeFaction</Cell>
+        <Cell>Change Faction</Cell>
+    </Row>
+
+
+	<Row>
+        <Cell>ui_keybinds_group_flight</Cell>
+        <Cell>Flight</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_flight_toggle</Cell>
+        <Cell>Toggle Flight</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_flight_fast</Cell>
+        <Cell>Fast</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_flight_slow</Cell>
+        <Cell>Slow</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_flight_up</Cell>
+        <Cell>Up</Cell>
+    </Row>
+    <Row>
+        <Cell>ui_keybinds_flight_down</Cell>
+        <Cell>Down</Cell>
+    </Row>
+</Table>
