@@ -26,26 +26,26 @@
 					<EntityContext context="crime_interruptAttack" target="$this.id">
 						<Sequence>
 							<Expression expressions="$target = $attackData.target" />
-							<ExecuteLua code="Warfare.brainLog(&quot;attack start&quot;) &#10; &#10;if Warfare:isRanged(entity) then &#10;data.isRanged = true &#10;data.weaponChange = enum_weaponChange.missile &#10;end" />
+							<ExecuteLua code="Warfare:brainLog(entity, &quot;attack start&quot;) &#10; &#10;if Warfare:isRanged(entity) then &#10;data.isRanged = true &#10;data.weaponChange = enum_weaponChange.missile &#10;end" />
 							<FuseBox StatusPropagation="Child" OneCleanup="true" saveVersion="2">
 								<Child canSkip="1">
 									<Parallel successMode="Any" failureMode="Any">
 										<MoveParamsDecorator speed="Run" pathFindingParams="" doorClosingPolicy="LeaveOpened">
-											<MeleeOffenseAutomationDecorator active="$automation_offense">
-												<MeleeDefenseAutomationDecorator active="$automation_defense">
-													<MeleeGuardAutomationDecorator GuardMode="$guardMode" active="$automation_guard">
-														<WeaponAutomationDecorator WeaponChange="$weaponChange" active="$automation_weapon">
-															<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="$automation_movement">
+											<MeleeDefenseAutomationDecorator active="$automation_defense">
+												<MeleeGuardAutomationDecorator GuardMode="$guardMode" active="$automation_guard">
+													<WeaponAutomationDecorator WeaponChange="$weaponChange" active="$automation_weapon">
+														<CombatFollowerDecorator ProbablisticDrivenSweetSpot="true" RPGSweetSpotArcDriver="true" active="$automation_movement">
+															<MeleeOffenseAutomationDecorator active="$automation_offense">
 																<CombatAction TargetNPC="$target" RelationOverride="Hostile" />
-															</CombatFollowerDecorator>
-														</WeaponAutomationDecorator>
-													</MeleeGuardAutomationDecorator>
-												</MeleeDefenseAutomationDecorator>
-											</MeleeOffenseAutomationDecorator>
+															</MeleeOffenseAutomationDecorator>
+														</CombatFollowerDecorator>
+													</WeaponAutomationDecorator>
+												</MeleeGuardAutomationDecorator>
+											</MeleeDefenseAutomationDecorator>
 										</MoveParamsDecorator>
 										<Loop count="-1">
 											<Sequence>
-												<ExecuteLua code="data.fight = Warfare.fight &#10; &#10;local targetEnt = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities) &#10;if data.target ~= targetEnt.this.id then &#10;data.switchTarget = true &#10;end &#10; &#10;data.distance = Warfare.getEntDistance(entity, XGenAIModule.GetEntityByWUID(data.target)) &#10; &#10;if data.isRanged and data.distance &gt; 4 then &#10;data.weaponChange = enum_weaponChange.missile &#10;elseif Warfare.getType(entity) == &quot;spearmen&quot; then &#10;data.weaponChange = enum_weaponChange.oversized &#10;else &#10;data.weaponChange = enum_weaponChange.melee &#10;end" />
+												<ExecuteLua code="data.fight = Warfare.fight &#10; &#10;local targetEnt = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities) &#10;if data.target ~= targetEnt.this.id then &#10;data.switchTarget = true &#10;data.target = targetEnt.this.id &#10;end &#10; &#10;data.distance = Warfare.getEntDistance(entity, XGenAIModule.GetEntityByWUID(data.target)) &#10; &#10;if data.isRanged and data.distance &gt; 4 then &#10;data.weaponChange = enum_weaponChange.missile &#10;elseif Warfare.getType(entity) == &quot;spearmen&quot; then &#10;data.weaponChange = enum_weaponChange.oversized &#10;else &#10;data.weaponChange = enum_weaponChange.melee &#10;end" />
 												<IfCondition failOnCondition="false" condition="~$fight">
 													<Fail />
 												</IfCondition>
@@ -55,7 +55,7 @@
 									</Parallel>
 								</Child>
 								<OnFail canSkip="1">
-									<ExecuteLua code="Warfare.brainLog(&quot;attack stop&quot;)" />
+									<ExecuteLua code="Warfare:brainLog(entity, &quot;attack stop&quot;)" />
 								</OnFail>
 							</FuseBox>
 						</Sequence>
@@ -63,16 +63,7 @@
 				</EntityContextElement>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<Parallel successMode="Any" failureMode="Any">
-				<Sequence>
-					<IfCondition failOnCondition="false" condition="~$fight | $exit">
-						<Fail />
-					</IfCondition>
-				</Sequence>
-			</Parallel>
-			<Loop count="-1" />
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="automation_defense" comment="" />
@@ -114,24 +105,24 @@
 											<OutputBreakpoints />
 											<MoveParamsDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
-												<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
-													<MeleeDefenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
-														<MeleeGuardAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 															<OutputBreakpoints />
-															<WeaponAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																<OutputBreakpoints />
-																<CombatFollowerDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
+																<MeleeOffenseAutomationDecorator hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																	<OutputBreakpoints />
 																	<CombatAction hasInputBreakpoint="0" comment="" breakpointFlags="0">
 																		<OutputBreakpoints />
 																	</CombatAction>
-																</CombatFollowerDecorator>
-															</WeaponAutomationDecorator>
-														</MeleeGuardAutomationDecorator>
-													</MeleeDefenseAutomationDecorator>
-												</MeleeOffenseAutomationDecorator>
+																</MeleeOffenseAutomationDecorator>
+															</CombatFollowerDecorator>
+														</WeaponAutomationDecorator>
+													</MeleeGuardAutomationDecorator>
+												</MeleeDefenseAutomationDecorator>
 											</MoveParamsDecorator>
 											<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 												<OutputBreakpoints />
@@ -164,23 +155,7 @@
 					</EntityContextElement>
 				</Behavior>
 			</Root>
-			<Forest>
-				<Parallel editorPosX="1110" editorPosY="-150" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-						<OutputBreakpoints />
-						<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-							<OutputBreakpoints />
-							<Fail hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Fail>
-						</IfCondition>
-					</Sequence>
-				</Parallel>
-				<Loop editorPosX="910" editorPosY="-200" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</Loop>
-			</Forest>
+			<Forest />
 			<Comments />
 		</EditorData>
 	</BehaviorTree>

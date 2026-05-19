@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="../database.xsd">
+	<weapon_presets>
+		<!-- Shields -->
+		<weapon_preset weapon_preset_id="8c7c8591-0000-0001-0001-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_01">
+			<weapon_preset_item item_class_id="a18df8ed-8a4a-47fa-a9fc-bbf8a7f72d68" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0000-0001-0002-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_02">
+			<weapon_preset_item item_class_id="23d3d037-6eb4-46dd-b294-10b0951b85f8" />
+		</weapon_preset>
+
+		<!-- Longsword -->
+		<weapon_preset weapon_preset_id="8c7c8591-0000-0002-0001-2cc795608ac7" weapon_preset_name="warfare_longsword">
+			<weapon_preset_item item_class_id="3858560f-cf48-436f-8815-4426003288fb" />
+		</weapon_preset>
+
+		<!-- Kuttenberg -->
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0001-0001-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_01_sword">
+			<weapon_preset_item item_class_id="efa237c7-3905-4813-b9c3-a32b449c17ad" />
+			<weapon_preset_item item_class_id="a18df8ed-8a4a-47fa-a9fc-bbf8a7f72d68" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0001-0002-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_02_sword">
+			<weapon_preset_item item_class_id="efa237c7-3905-4813-b9c3-a32b449c17ad" />
+			<weapon_preset_item item_class_id="23d3d037-6eb4-46dd-b294-10b0951b85f8" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0002-0001-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_01_hammer">
+			<weapon_preset_item item_class_id="5f7ecb68-3d15-4cbf-988a-9e8de87fa0d9" />
+			<weapon_preset_item item_class_id="a18df8ed-8a4a-47fa-a9fc-bbf8a7f72d68" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0002-0002-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_02_hammer">
+			<weapon_preset_item item_class_id="5f7ecb68-3d15-4cbf-988a-9e8de87fa0d9" />
+			<weapon_preset_item item_class_id="23d3d037-6eb4-46dd-b294-10b0951b85f8" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0003-0001-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_01_axe">
+			<weapon_preset_item item_class_id="0f0164d5-3746-4d07-a1ed-0f138225a6d9" />
+			<weapon_preset_item item_class_id="a18df8ed-8a4a-47fa-a9fc-bbf8a7f72d68" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0003-0002-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_02_axe">
+			<weapon_preset_item item_class_id="0f0164d5-3746-4d07-a1ed-0f138225a6d9" />
+			<weapon_preset_item item_class_id="23d3d037-6eb4-46dd-b294-10b0951b85f8" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0004-0001-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_01_mace">
+			<weapon_preset_item item_class_id="839992c8-657b-4d5e-97c9-96ff94430d72" />
+			<weapon_preset_item item_class_id="a18df8ed-8a4a-47fa-a9fc-bbf8a7f72d68" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0001-0004-0002-2cc795608ac7" weapon_preset_name="warfare_kuttenberg_shield_02_mace">
+			<weapon_preset_item item_class_id="839992c8-657b-4d5e-97c9-96ff94430d72" />
+			<weapon_preset_item item_class_id="23d3d037-6eb4-46dd-b294-10b0951b85f8" />
+		</weapon_preset>
+
+		<!-- Semine -->
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0001-0001-2cc795608ac7" weapon_preset_name="warfare_semine_shield_01_sword">
+			<weapon_preset_item item_class_id="efa237c7-3905-4813-b9c3-a32b449c17ad" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0001-0002-2cc795608ac7" weapon_preset_name="warfare_semine_shield_02_sword">
+			<weapon_preset_item item_class_id="efa237c7-3905-4813-b9c3-a32b449c17ad" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0002-0001-2cc795608ac7" weapon_preset_name="warfare_semine_shield_01_hammer">
+			<weapon_preset_item item_class_id="5f7ecb68-3d15-4cbf-988a-9e8de87fa0d9" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0002-0002-2cc795608ac7" weapon_preset_name="warfare_semine_shield_02_hammer">
+			<weapon_preset_item item_class_id="5f7ecb68-3d15-4cbf-988a-9e8de87fa0d9" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0003-0001-2cc795608ac7" weapon_preset_name="warfare_semine_shield_01_axe">
+			<weapon_preset_item item_class_id="0f0164d5-3746-4d07-a1ed-0f138225a6d9" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0003-0002-2cc795608ac7" weapon_preset_name="warfare_semine_shield_02_axe">
+			<weapon_preset_item item_class_id="0f0164d5-3746-4d07-a1ed-0f138225a6d9" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0004-0001-2cc795608ac7" weapon_preset_name="warfare_semine_shield_01_mace">
+			<weapon_preset_item item_class_id="839992c8-657b-4d5e-97c9-96ff94430d72" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+		<weapon_preset weapon_preset_id="8c7c8591-0002-0004-0002-2cc795608ac7" weapon_preset_name="warfare_semine_shield_02_mace">
+			<weapon_preset_item item_class_id="839992c8-657b-4d5e-97c9-96ff94430d72" />
+			<weapon_preset_item item_class_id="03457360-206e-42fb-9bfc-41509b84faed" />
+		</weapon_preset>
+
+	</weapon_presets>
+</database>

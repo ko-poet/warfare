@@ -3,7 +3,6 @@
 	<BehaviorTree name="onUpdate" is_function="0">
 		<Variables>
 			<Variable name="attackData" type="switch:interruptData:attack" values="" isPersistent="0" form="single" />
-			<Variable name="crimeInformation" type="information" values="" isPersistent="0" form="single" />
 			<Variable name="fight" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="mrkev" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="target" type="_wuid" values="" isPersistent="0" form="single" />
@@ -13,12 +12,12 @@
 			<Behavior canSkip="1">
 				<SuppressFailure>
 					<Sequence>
-						<ExecuteLua code="data.fight = Warfare.fight &#10;data.visorDown = entity.Properties.WarfareProperties.visor" />
+						<ExecuteLua code="if Warfare then &#10;data.fight = Warfare.fight &#10;data.visorDown = Warfare.getVisor(entity) &#10;end" />
 						<IfCondition failOnCondition="false" condition="$visorDown">
 							<Sequence>
 								<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="87643362" />
 								<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_visor&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
-								<ExecuteLua code="entity.Properties.WarfareProperties.visor = false &#10;data.visorDown = false" />
+								<ExecuteLua code="Warfare.setVisor(entity, false) &#10;data.visorDown = false &#10;Warfare.brainLog(&quot;Visor down&quot;)" />
 							</Sequence>
 						</IfCondition>
 						<IfCondition failOnCondition="false" condition="$fight">
@@ -29,6 +28,7 @@
 										<ExecuteLua code="data.target = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities).this.id" />
 										<IfCondition failOnCondition="false" condition="$target ~= $__null">
 											<Sequence>
+												<ExecuteLua code="Warfare:brainLog(entity, &quot;Calling attack&quot;)" />
 												<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="25225112" />
 												<Expression expressions="$attackData.target = $target" />
 												<AddInterrupt_attack attackData="$attackData" Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_attack&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
@@ -47,14 +47,13 @@
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="attackData" comment="" />
-				<Variable name="crimeInformation" comment="" />
 				<Variable name="fight" comment="" />
 				<Variable name="mrkev" comment="" />
 				<Variable name="target" comment="" />
 				<Variable name="visorDown" comment="" />
 			</Variables>
 			<ForwardDeclarations />
-			<Root editorPosX="-910" editorPosY="150" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+			<Root editorPosX="-1150" editorPosY="140" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
 					<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
@@ -96,6 +95,9 @@
 												<OutputBreakpoints />
 												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 													<OutputBreakpoints />
+													<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+													</ExecuteLua>
 													<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
 														<OutputBreakpoints />
 													</Function_crime_getMrkev>
@@ -120,8 +122,8 @@
 			</Root>
 			<Forest />
 			<Comments>
-				<Comment text="call_attack" posX="440" posY="180" width="440" height="497" resizeBorderWidth="440" resizeBorderHeight="470" color="0.65,0.65,0.65" author="Admin" />
-				<Comment text="visor_down" posX="-170" posY="-160" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
+				<Comment text="call_attack" posX="200" posY="160" width="420" height="537" resizeBorderWidth="420" resizeBorderHeight="510" color="0.65,0.65,0.65" author="Admin" />
+				<Comment text="visor_down" posX="-410" posY="-160" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
 			</Comments>
 		</EditorData>
 	</BehaviorTree>

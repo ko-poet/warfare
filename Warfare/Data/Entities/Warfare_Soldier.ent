@@ -1,0 +1,4 @@
+<Entity
+	Name="Warfare_Soldier"
+	Script="Scripts/Entities/AI/Warfare_Soldier.lua"
+/>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "..\storm.dtd">
+<storm>
+    <rules>
+        <rule name="appearance_warfare_test">
+            <selectors>
+                <hasName Name="soul_warfare_0" />
+            </selectors>
+            <operations>
+                <setBody name="capon_body" />
+                <setHead name="m_head_capon" />
+                <setHair name="m_hair_capon" />
+                <setBeard name="m_beard_00" />
+                <setUnderwear name="m_underwear01_m01" />                                      
+            </operations>
+        </rule>
+
+
+    </rules>
+</storm>

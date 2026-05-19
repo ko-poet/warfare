@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="../database.xsd">
+	<subbrain_switchings version="1">
+        <subbrain_switching file_name="warfare_schedule.xml" subbrain_id="df3be5f7-bf00-4b97-9fe0-785916840767" tree_name="onUpdate" />
+	</subbrain_switchings>
+</database>

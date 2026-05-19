@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="../database.xsd">
+	<mailbox_groups version="1">
+		<mailbox_group mailbox_group_file_name="warfare_schedule.xml" mailbox_group_id="61426837-4d6f-4669-9f4a-16553ab66857" mailbox_group_tree_name="onUpdate" />
+	</mailbox_groups>
+</database>

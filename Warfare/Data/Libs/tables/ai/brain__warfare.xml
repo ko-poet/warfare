@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="../database.xsd">
+	<brains version="1">
+		<brain brain_id="149d7384-ea66-4877-997f-3eb01bedb812" brain_name="warfare_basic_brain" />
+	</brains>
+</database>
