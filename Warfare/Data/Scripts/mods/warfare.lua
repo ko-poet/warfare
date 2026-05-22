@@ -119,7 +119,7 @@ Warfare = Warfare or {
         faction = 1,
         numSpawns = 10,
         rowSize = 10,
-        soldierType = "peasants",
+        soldierType = "infantry",
         entSpace = 1.2,
 
         Preview = {
@@ -138,8 +138,10 @@ Warfare = Warfare or {
     Factions = {},
     SpawnedEntities = {},
     PreviewEntities = {},
+    BattleEntities = {},
     SavedEntities = {},
 
+    ChatTarget = nil,
     fight = false,
 }
 
@@ -261,7 +263,7 @@ function Player:OnAction(action, activation, value)
     end
 
     if _Player_OnAction then
-        return _Player_OnAction(self, action, activation, value)
+        --return _Player_OnAction(self, action, activation, value)
     end
 end
 
@@ -271,7 +273,7 @@ function NPC:OnLoad(saveData)
         table.insert(Warfare.SavedEntities, self)
 	end
     if _NPC_OnLoad then
-        return _NPC_OnLoad(self, saveData)
+        --return _NPC_OnLoad(self, saveData)
     end
 end
 
@@ -280,21 +282,13 @@ function NPC:OnSave(saveData)
 		saveData.WarfareProperties = self.Properties.WarfareProperties
 	end
     if _NPC_OnSave then
-        return _NPC_OnSave(self, saveData)
+        --return _NPC_OnSave(self, saveData)
     end
 end
 
 
 function Warfare:OnGameplayStarted()
-    System.LogAlways(string.format("$5Loading Mod..."))
-
-    --[[Script.UnloadScript("scripts/warfare/wdebug.lua")
-    Script.UnloadScript("scripts/warfare/spawn.lua")
-    Script.UnloadScript("scripts/warfare/commands.lua")
-    Script.UnloadScript("scripts/warfare/utility.lua")
-    Script.UnloadScript("scripts/warfare/simulation.lua")
-    Script.UnloadScript("scripts/warfare/equipment.lua")
-    Script.UnloadScript("scripts/warfare/flight.lua")]]
+    System.LogAlways(string.format("$5[Warfare] Loading..."))
 
     Script.ReloadScript("scripts/warfare/wdebug.lua")
     Script.ReloadScript("scripts/warfare/commands.lua")
@@ -317,6 +311,7 @@ function Warfare:OnGameplayStarted()
     self.Factions = {}
     self.SpawnedEntities = {}
     self.PreviewEntities = {}
+    self.BattleEntities = {}
 
     self:addFaction("Kuttenberg")
     self:addFaction("Semine")
@@ -328,8 +323,6 @@ function Warfare:OnGameplayStarted()
     self.log("Ready")
 
     --wh_cs_MaxAttackDistanceMoveOffset entity.soul:SetTarget(nil)
-    --Warfare.log(player.soul:GetDerivedStat("fdm"))
-
 end
 
 

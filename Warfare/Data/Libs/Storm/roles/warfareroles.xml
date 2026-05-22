@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE storm SYSTEM "../../storm.dtd">
+<storm>
+  <rules>
+    <rule name="soul_warfare_test">
+      <selectors>
+        <hasName name="soul_warfare_1" />
+      </selectors>
+      <operations>
+        <addRole name="WARFARE_SOLDIER_1" />
+      </operations>
+    </rule>
+
+  </rules>
+</storm>

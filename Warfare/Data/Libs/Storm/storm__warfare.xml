@@ -4,6 +4,8 @@
 		<task name="appearance" class="appearance">
 			<source path="appearance\warfareappearance.xml" />
 		</task>
-
+		<task name="roles" class="roles">
+			<source path="roles\warfareroles.xml" />
+		</task>
 	</tasks>
 </storm>

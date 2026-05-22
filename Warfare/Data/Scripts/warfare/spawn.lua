@@ -1,17 +1,14 @@
-function Warfare.spawnSoldier(name, soul, pos, _isPreview, _soldierType, _faction)
+function Warfare.spawnSoldier(name, soul, pos, _isPreview, _soldierType, _faction, _unit)
     local wProperties = {
         isPreview = _isPreview,
-        faction = _faction,
         soldierType = _soldierType,
+        faction = _faction,
+        unit = _unit,
         visor = false
     }
     return System.SpawnEntity({class = "NPC", position = pos, name = name, properties = {WarfareProperties = wProperties, guidSharedSoulId = soul}})
 end
 
-function Warfare.spawnEnt(model)
-    --"Objects/manmade/common_furniture/barrels/barrel_a.cgf"
-    return System.SpawnEntity({class = "BasicEntity", position = player:GetPos(), name = "test", properties = {bSerialize = 1, object_Model = model}})
-end
 
 function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
     local basePos = self.getLookingAt(self.EntMask.terrain, 200).pos
@@ -32,7 +29,7 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
 
     for i = 1, numSpawns do
         local name = "SpawnedEntity_"
-        local soul = self:getRandomSoul(soldierType)
+        local soul = "b15d9664-d982-0001-0001-0a808e8131de"
         local spawnPos = self:getFormationPos(i, basePos, dir, rowSize, entSpace)
 
         while System.GetEntityByName(name .. string.format("%03d", spnmr)) ~= nil do
@@ -47,9 +44,12 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
         self:equipEntity(spawnedEntity, true)
         spawnedEntity:SetAngles({0, 0, ang - math.pi})
 
-        table.insert(self.SpawnedEntities, spawnedEntity)
+        --player can't chat with enemy soldiers
+        if faction ~= 1 then
+            spawnedEntity.soul:RemoveMetaRoleByName("NPC")
+        end
 
-        --Warfare:activateBrain(spawnedEntity)
+        table.insert(self.SpawnedEntities, spawnedEntity)
 
         spawned = spawned + 1
     end
@@ -101,13 +101,14 @@ function Warfare:spawnPreview()
 
             self:equipEntity(spawnedEntity, false)
             spawnedEntity:SetAngles({0, 0, ang - math.pi})
+            spawnedEntity.soul:RemoveMetaRoleByName("NPC")
 
             table.insert(self.PreviewEntities, spawnedEntity)
         end
     end
 
     for i, ent in ipairs(self.PreviewEntities) do
-        local ent = self.PreviewEntities[i]
+        local ent = ent
         local pos = self:getFormationPos(i, basePos, dir, rowSize, entSpace)
 
         ent:SetPos(pos)
@@ -124,7 +125,7 @@ function Warfare:spawnPreview()
         self.Settings.Preview.reload = false
     end
 
-    Script.SetTimerForFunction(1, "Warfare.spawnPreview", self)
+    Script.SetTimerForFunction(5, "Warfare.spawnPreview", self)
 end
 
 --create spawning preset from entity list
@@ -168,7 +169,7 @@ function Warfare:spawnFromPreset(preset, entList)
 end
 
 function Warfare:despawn(ent, entList)
-    if (ent == player) then
+    if (not ent or ent == player) then
         return
     end
 
@@ -181,17 +182,27 @@ end
 
 function Warfare:despawnAll(entList)
     local count = 0
+    local playerFound = false
+
+    if not entList then
+        return
+    end
 
     while #entList > 0 do
         local ent = entList[#entList]
+        table.remove(entList)
 
         if (ent ~= player) then
-            table.remove(entList)
             if ent then
                 ent:DeleteThis()
                 count = count + 1
             end
+        else
+            playerFound = true
         end
+    end
+    if playerFound then
+        table.insert(entList, player)
     end
     --self.log("Despawned " .. count .. " Entities")
 end

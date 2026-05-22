@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="../database.xsd">
+	<roles version="1">
+		<role _role_string_name="role_WARFARE_SOLDIER_1" metarole_name="NPC" role_name="WARFARE_SOLDIER_1" />
+	</roles>
+</database>

@@ -8,7 +8,10 @@ if false then
     ActionMapManager = {}
     Physics = {}
     VectorUtils = {}
+    EntityCommon = {}
     UIAction = {}
+    Particle = {}
+    Lightning = {}
     NPC = {}
     Player = {}
     player = {}
@@ -168,12 +171,21 @@ function WDebug:drawEntText(ent)
     end
 
     System.DrawText(base.x, base.y, ent:GetName(), 1.5, 1, 1, 1)
-    System.DrawText(base.x, base.y + 5, ent.class, 1.5, 1, 1, 1)
+    System.DrawText(base.x, base.y + 10, ent.class, 1.5, 1, 1, 1)
 end
 
 
 function WDebug:debugDraw()
-    local entities = System.GetEntities(player:GetPos(), 30)
+    local entities = System.GetEntities(player:GetPos(), 10)
+    local crosshair = Warfare.getLookingAt(Warfare.EntMask.all, 200)
+
+    if crosshair then
+        local pos = crosshair.pos
+        System.DrawText(900, 580, "x: " .. pos.x, 1.5, 1, 1, 1)
+        System.DrawText(900, 595, "y: " .. pos.y, 1.5, 1, 1, 1)
+        System.DrawText(900, 610, "z: " .. pos.z, 1.5, 1, 1, 1)
+    end
+
     for i, ent in pairs(entities)
     do
         self:drawEntText(ent)
@@ -182,6 +194,6 @@ function WDebug:debugDraw()
         end
     end
 
-    Script.SetTimerForFunction(10, "WDebug.test", self)
+    Script.SetTimerForFunction(5, "WDebug.debugDraw", self)
 
 end

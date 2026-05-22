@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<Table xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Row>
+    <Cell>hledani_k_quest_done_SaMv</Cell>
+    <Cell />
+    <Cell>Quest done</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_h4gL</Cell>
+    <Cell />
+    <Cell>wfChat1</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_seq1_GGuL</Cell>
+    <Cell />
+    <Cell>seq1</Cell>
+  </Row>
+  <Row>
+    <Cell>wfch_henry__19Bf</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>wfch_bara__89FT</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>wfchat1_seq2_iUEF</Cell>
+    <Cell />
+    <Cell>seq2</Cell>
+  </Row>
+  <Row>
+    <Cell>wfch_henry__mhV6</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>wfchat1_seq3_DhRk</Cell>
+    <Cell />
+    <Cell>seq3</Cell>
+  </Row>
+  <Row>
+    <Cell>wfch_henry__wnBr</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>ui_wfchat1_seq1_TrDt</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>ui_wfchat1_seq2_HGbh</Cell>
+    <Cell />
+    <Cell>Follow Me!</Cell>
+  </Row>
+  <Row>
+    <Cell>ui_wfchat1_seq3_R7fM</Cell>
+    <Cell />
+    <Cell>Hold!</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_wfollow_REfX</Cell>
+    <Cell />
+    <Cell>wFollow</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_whold_kVrp</Cell>
+    <Cell />
+    <Cell>wHold</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_seq5_2Frp</Cell>
+    <Cell />
+    <Cell>seq5</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_wenter_S94m</Cell>
+    <Cell />
+    <Cell>wEnter</Cell>
+  </Row>
+</Table>

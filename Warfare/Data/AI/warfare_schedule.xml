@@ -10,40 +10,52 @@
 		</Variables>
 		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
 			<Behavior canSkip="1">
-				<SuppressFailure>
-					<Sequence>
-						<ExecuteLua code="if Warfare then &#10;data.fight = Warfare.fight &#10;data.visorDown = Warfare.getVisor(entity) &#10;end" />
-						<IfCondition failOnCondition="false" condition="$visorDown">
-							<Sequence>
-								<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="87643362" />
-								<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_visor&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
-								<ExecuteLua code="Warfare.setVisor(entity, false) &#10;data.visorDown = false &#10;Warfare.brainLog(&quot;Visor down&quot;)" />
-							</Sequence>
-						</IfCondition>
-						<IfCondition failOnCondition="false" condition="$fight">
-							<EntityContextCheck context="crime_interruptAttack" target="$this.id" saveVersion="2">
-								<Else canSkip="1">
-									<Sequence>
-										<Expression expressions="$target = $__null" />
-										<ExecuteLua code="data.target = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities).this.id" />
-										<IfCondition failOnCondition="false" condition="$target ~= $__null">
-											<Sequence>
-												<ExecuteLua code="Warfare:brainLog(entity, &quot;Calling attack&quot;)" />
-												<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="25225112" />
-												<Expression expressions="$attackData.target = $target" />
-												<AddInterrupt_attack attackData="$attackData" Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_attack&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
-											</Sequence>
-										</IfCondition>
-									</Sequence>
-								</Else>
-							</EntityContextCheck>
-						</IfCondition>
-						<Wait duration="&apos;200&apos;" timeType="GameTime" doFail="false" variation="&apos;50&apos;" />
-					</Sequence>
-				</SuppressFailure>
+				<Parallel successMode="Any" failureMode="Any">
+					<Loop count="-1">
+						<Sequence>
+							<ExecuteLua code="data.fight = Warfare.fight &#10;data.visorDown = Warfare.getVisor(entity)" />
+							<IfCondition failOnCondition="false" condition="$visorDown">
+								<Sequence>
+									<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="87643362" />
+									<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_visor&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
+									<ExecuteLua code="Warfare.setVisor(entity, false) &#10;data.visorDown = false &#10;Warfare:brainLog(entity, &quot;Visor down&quot;)" />
+								</Sequence>
+							</IfCondition>
+							<IfCondition failOnCondition="false" condition="$fight">
+								<EntityContextCheck context="crime_interruptAttack" target="$this.id" saveVersion="2">
+									<Else canSkip="1">
+										<Sequence>
+											<Expression expressions="$target = $__null" />
+											<ExecuteLua code="data.target = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities).this.id" />
+											<IfCondition failOnCondition="false" condition="$target ~= $__null">
+												<Sequence>
+													<ExecuteLua code="Warfare:brainLog(entity, &quot;Calling attack&quot;)" />
+													<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="25225112" />
+													<Expression expressions="$attackData.target = $target" />
+													<AddInterrupt_attack attackData="$attackData" Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_attack&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
+												</Sequence>
+											</IfCondition>
+										</Sequence>
+									</Else>
+								</EntityContextCheck>
+							</IfCondition>
+							<Wait duration="&apos;200&apos;" timeType="GameTime" doFail="false" variation="&apos;30&apos;" />
+						</Sequence>
+					</Loop>
+					<Loop count="-1">
+						<Sequence>
+							<DialogGate Who="$this.id" Negation="false" EndDialogInRoot="false" Condition="InChat" RunLogic="KeepRunning">
+								<ExecuteLua code="Warfare:brainLog(entity, &quot;Chatting&quot;)" />
+							</DialogGate>
+							<Wait duration="&apos;50&apos;" timeType="GameTime" doFail="false" variation="&apos;10&apos;" />
+						</Sequence>
+					</Loop>
+				</Parallel>
 			</Behavior>
 		</Root>
-		<ForestContainer />
+		<ForestContainer>
+			<SuppressFailure />
+		</ForestContainer>
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="attackData" comment="" />
@@ -53,77 +65,99 @@
 				<Variable name="visorDown" comment="" />
 			</Variables>
 			<ForwardDeclarations />
-			<Root editorPosX="-1150" editorPosY="140" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+			<Root editorPosX="-1510" editorPosY="140" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 				<OutputBreakpoints />
 				<Behavior>
-					<SuppressFailure hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
 						<OutputBreakpoints />
-						<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
 							<OutputBreakpoints />
-							<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 								<OutputBreakpoints />
-							</ExecuteLua>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								</ExecuteLua>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
-									</Function_crime_getMrkev>
-									<AddInterrupt hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Function_crime_getMrkev>
+										<AddInterrupt hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</AddInterrupt>
+										<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</ExecuteLua>
+									</Sequence>
+								</IfCondition>
+								<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
 										<OutputBreakpoints />
-									</AddInterrupt>
+										<Else>
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Expression>
+												<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</ExecuteLua>
+												<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+													<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+														<OutputBreakpoints />
+														<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</ExecuteLua>
+														<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Function_crime_getMrkev>
+														<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</Expression>
+														<AddInterrupt_attack hasInputBreakpoint="0" comment="" breakpointFlags="0">
+															<OutputBreakpoints />
+														</AddInterrupt_attack>
+													</Sequence>
+												</IfCondition>
+											</Sequence>
+										</Else>
+									</EntityContextCheck>
+								</IfCondition>
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</Wait>
+							</Sequence>
+						</Loop>
+						<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<DialogGate hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
 									<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
 										<OutputBreakpoints />
 									</ExecuteLua>
-								</Sequence>
-							</IfCondition>
-							<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-								<EntityContextCheck hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+								</DialogGate>
+								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
-									<Else>
-										<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-											<OutputBreakpoints />
-											<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</Expression>
-											<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-											</ExecuteLua>
-											<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
-												<OutputBreakpoints />
-												<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
-													<OutputBreakpoints />
-													<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</ExecuteLua>
-													<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Function_crime_getMrkev>
-													<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</Expression>
-													<AddInterrupt_attack hasInputBreakpoint="0" comment="" breakpointFlags="0">
-														<OutputBreakpoints />
-													</AddInterrupt_attack>
-												</Sequence>
-											</IfCondition>
-										</Sequence>
-									</Else>
-								</EntityContextCheck>
-							</IfCondition>
-							<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
-								<OutputBreakpoints />
-							</Wait>
-						</Sequence>
-					</SuppressFailure>
+								</Wait>
+							</Sequence>
+						</Loop>
+					</Parallel>
 				</Behavior>
 			</Root>
-			<Forest />
+			<Forest>
+				<SuppressFailure editorPosX="-1230" editorPosY="-30" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+				</SuppressFailure>
+			</Forest>
 			<Comments>
-				<Comment text="call_attack" posX="200" posY="160" width="420" height="537" resizeBorderWidth="420" resizeBorderHeight="510" color="0.65,0.65,0.65" author="Admin" />
-				<Comment text="visor_down" posX="-410" posY="-160" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
+				<Comment text="call_attack" posX="50" posY="-40" width="420" height="537" resizeBorderWidth="420" resizeBorderHeight="510" color="0.65,0.65,0.65" author="Admin" />
+				<Comment text="visor_down" posX="-560" posY="-360" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
 			</Comments>
 		</EditorData>
 	</BehaviorTree>

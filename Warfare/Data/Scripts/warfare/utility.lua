@@ -1,13 +1,3 @@
-function Warfare.log(str)
-    System.LogAlways(string.format("$5[Warfare] " .. tostring(str)))
-end
-
-function Warfare:brainLog(ent, str)
-    if self.brainDebug then
-        System.LogAlways(string.format("$6[" .. ent:GetName() .. "] " .. tostring(str)))
-    end
-end
-
 function Warfare.copyTable(tbl)
     local out = {}
     for i = 1, #tbl do
@@ -23,6 +13,21 @@ function Warfare.indexOf(array, value)
         end
     end
     return nil
+end
+
+function Warfare.log(str)
+    System.LogAlways(string.format("$5[Warfare] " .. tostring(str)))
+end
+
+--used in NPC AI
+function Warfare.brainLog(ent, str)
+    if Warfare.brainDebug then
+        System.LogAlways(string.format("$6[" .. ent:GetName() .. "] " .. tostring(str)))
+    end
+end
+
+function Warfare:setChatTarget(ent)
+    self.ChatTarget = ent
 end
 
 
@@ -114,6 +119,19 @@ function Warfare.setVisor(ent, visor)
     ent.Properties.WarfareProperties.visor = visor
 end
 
+function Warfare.getUnit(ent)
+    if not ent or not ent.Properties or not ent.Properties.WarfareProperties then return nil end
+    return ent.Properties.WarfareProperties.unit
+end
+
+function Warfare.setUnit(ent, unit)
+    if not ent then return end
+    if not ent.Properties then ent.Properties = {} end
+    if not ent.Properties.WarfareProperties then ent.Properties.WarfareProperties = {} end
+
+    ent.Properties.WarfareProperties.unit = unit
+end
+
 function Warfare.getIsPreview(ent)
     if not ent or not ent.Properties or not ent.Properties.WarfareProperties then return nil end
     return ent.Properties.WarfareProperties.isPreview
@@ -197,6 +215,35 @@ function Warfare:getFormationPos(count, basePos, dir, rowSize, entSpace)
     end
 
     return pos
+end
+
+function Warfare:getFreeUnit(faction)
+    if not faction then return end
+
+    local factionTbl = self.BattleEntities[faction]
+    local unit = #factionTbl + 1
+    factionTbl[unit] = {}
+    return unit
+end
+
+function Warfare:addEntity(ent)
+    local faction = self.getFaction(ent)
+    local unit = self.getUnit(ent)
+
+    if not faction then return end
+
+    self.BattleEntities[faction] = self.BattleEntities[faction] or {}
+    local f = self.BattleEntities[faction]
+
+    if not unit then
+        unit = #f + 1
+        f[unit] = {}
+        table.insert(f[unit], ent)
+        self.setUnit(ent, unit)
+    else
+        self.BattleEntities[faction][unit] = self.BattleEntities[faction][unit] or {}
+    end
+
 end
 
 --set faction clothing and weapon tables based on coat of arms

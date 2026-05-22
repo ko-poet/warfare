@@ -76,16 +76,18 @@ function Warfare:getWinner(entList)
     for i, ent in ipairs(entList) do
         if self.isAlive(ent) then
             local faction = self.getFaction(ent)
-            numAlive[faction] = numAlive[faction] + 1
+            if faction then
+                numAlive[faction] = numAlive[faction] + 1
+            end
         end
     end
 
-    if numAlive[1] == 0 then
+    if numAlive[1] == 0 and numAlive[2] == 0 then
+        return 0, 0
+    elseif numAlive[1] == 0 then
         return 2, numAlive[2]
     elseif numAlive[2] == 0 then
         return 1, numAlive[1]
-    elseif numAlive[1] == 0 and numAlive[2] == 0 then
-        return 0, 0
     end
 
     return nil

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
+	<Skald>
+		<Dialog Name="wfchat1">
+			<Ports>
+				<Port Name="wfollow" Direction="Out" Type="trigger">
+					<DesignName StringName="wfchat1_wfollow_REfX" Text="wFollow" />
+				</Port>
+				<Port Name="whold" Direction="Out" Type="trigger">
+					<DesignName StringName="wfchat1_whold_kVrp" Text="wHold" />
+				</Port>
+				<Port Name="wenter" Direction="Out" Type="trigger">
+					<DesignName StringName="wfchat1_wenter_S94m" Text="wEnter" />
+				</Port>
+			</Ports>
+			<Text StringName="wfchat1_h4gL" Text="wfChat1" />
+			<Dialogue Type="chat" TechnicalStatus="Enabled" Initiator="Player">
+				<Decision Name="dec1">
+					<Sequences>
+						<Sequence EndType="EndDialogue" Name="seq2">
+							<DesignName StringName="wfchat1_seq2_iUEF" Text="seq2" />
+							<UiPrompt StringName="ui_wfchat1_seq2_HGbh" Text="Follow Me!" />
+							<Triggers>
+								<Port Name="wfollow" />
+							</Triggers>
+							<Elements>
+								<Response Role="WARFARE_SOLDIER_1" />
+								<Response Role="HENRY">
+									<Text StringName="wfch_henry__mhV6" Text="" />
+									<Commands>
+										<CameraCommand />
+									</Commands>
+								</Response>
+							</Elements>
+						</Sequence>
+						<Sequence EndType="EndDialogue" Name="seq3">
+							<DesignName StringName="wfchat1_seq3_DhRk" Text="seq3" />
+							<UiPrompt StringName="ui_wfchat1_seq3_R7fM" Text="Hold!" />
+							<Triggers>
+								<Port Name="whold" />
+							</Triggers>
+							<Elements>
+								<Response Role="HENRY">
+									<Text StringName="wfch_henry__wnBr" Text="" />
+									<Commands>
+										<CameraCommand />
+									</Commands>
+								</Response>
+							</Elements>
+						</Sequence>
+					</Sequences>
+				</Decision>
+			</Dialogue>
+		</Dialog>
+	</Skald>
+</Database>

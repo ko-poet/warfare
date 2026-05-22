@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
+	<Skald>
+		<Gameplay Name="battle_barks" VoiceNamespace="true">
+			<Definitions>
+				<Definition File="battle_barks/strelci_pod_hradbou_idle_barky.xml" />
+				<Definition File="battle_barks/sekernici_idle_barky.xml" />
+				<Definition File="battle_barks/prazsky_velitel_krici_ze_zadni_rady.xml" />
+				<Definition File="battle_barks/vojak_v_bitve_utika.xml" />
+				<Definition File="battle_barks/vojaci_se_stahuji.xml" />
+				<Definition File="battle_barks/prazane_pod_hradbou_cekaji_na_zebrik.xml" />
+				<Definition File="battle_barks/nosic_zebriku_poklada_zebrik.xml" />
+				<Definition File="battle_barks/wfchat1.xml" />
+			</Definitions>
+			<Nodes>
+				<Function Name="addbuff2" PositionY="270" PositionX="-290" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="Buff" Value="0c903899-fcc9-4cf2-9ee3-1130ac08b0fc" />
+					<Edge From="wfchat1.wfollow" To="Exec" />
+				</Function>
+				<Function Name="addbuff2_1" PositionY="520" PositionX="-290" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
+					<Asset Name="Souls" Alias="player" />
+					<Constant Name="Buff" Value="57095908-1351-40a3-b8c2-c3f8216b77ad" />
+					<Edge From="wfchat1.whold" To="Exec" />
+				</Function>
+				<nosic_zebriku_poklada_zebrik Name="nosic_zebriku_poklada_zebrik" PositionY="970" PositionX="0" />
+				<prazane_pod_hradbou_cekaji_na_zebrik Name="prazane_pod_hradbou_cekaji_na_zebrik" PositionY="800" PositionX="0" />
+				<prazsky_velitel_krici_ze_zadni_rady Name="prazsky_velitel_krici_ze_zadni_rady" PositionY="220" PositionX="0" />
+				<sekernici_idle_barky Name="sekernici_idle_barky" PositionY="50" PositionX="0" />
+				<strelci_pod_hradbou_idle_barky Name="strelci_pod_hradbou_idle_barky" PositionY="-130" PositionX="0" />
+				<vojaci_se_stahuji Name="vojaci_se_stahuji" PositionY="590" PositionX="0" />
+				<vojak_v_bitve_utika Name="vojak_v_bitve_utika" PositionY="400" PositionX="0" />
+				<wfchat1 Name="wfchat1" PositionY="330" PositionX="-770" />
+			</Nodes>
+			<Text StringName="battle_barks_NxF0" Text="Battle barks" />
+			<Elements>
+				<GameplayActionElement>
+					<Text StringName="battle_ba_bitevni_barky_p_hQq4" Text="Bitevní bárky pro útočníky útočící na hradby (Suchdole, Nebákov). Bárky určené animcharům v jejich trackview. Bárky nereagují na ad hoc podněty jsou dělané pro obecné použití v daném trackview, nikoliv na konkrétní událost, že někdo někoho zabil, někdo spadnul z hradby." />
+				</GameplayActionElement>
+			</Elements>
+		</Gameplay>
+	</Skald>
+</Database>
