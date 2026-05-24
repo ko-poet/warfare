@@ -4,6 +4,7 @@ function Warfare.spawnSoldier(name, soul, pos, _isPreview, _soldierType, _factio
         soldierType = _soldierType,
         faction = _faction,
         unit = _unit,
+        command = "attack",
         visor = false
     }
     return System.SpawnEntity({class = "NPC", position = pos, name = name, properties = {WarfareProperties = wProperties, guidSharedSoulId = soul}})
@@ -27,9 +28,11 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
         rowSize = numSpawns
     end
 
+    local unit = self:getFreeUnit(faction)
+
     for i = 1, numSpawns do
-        local name = "SpawnedEntity_"
-        local soul = "b15d9664-d982-0001-0001-0a808e8131de"
+        local name = "wBattleEntity_"
+        local soul = self.getRandomSoul(soldierType)
         local spawnPos = self:getFormationPos(i, basePos, dir, rowSize, entSpace)
 
         while System.GetEntityByName(name .. string.format("%03d", spnmr)) ~= nil do
@@ -39,7 +42,7 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
 		name = name .. string.format("%03d", spnmr)
 		spnmr = spnmr + 1
 
-        local spawnedEntity = self.spawnSoldier(name, soul, spawnPos, false, soldierType, faction)
+        local spawnedEntity = self.spawnSoldier(name, soul, spawnPos, false, soldierType, faction, unit)
 
         self:equipEntity(spawnedEntity, true)
         spawnedEntity:SetAngles({0, 0, ang - math.pi})
@@ -49,7 +52,8 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
             spawnedEntity.soul:RemoveMetaRoleByName("NPC")
         end
 
-        table.insert(self.SpawnedEntities, spawnedEntity)
+        Warfare:addEntity(spawnedEntity)
+       -- table.insert(self.SpawnedEntities, spawnedEntity)
 
         spawned = spawned + 1
     end
@@ -88,7 +92,7 @@ function Warfare:spawnPreview()
         for i = 1, numSpawns - #self.PreviewEntities do
             local spawnPos = self:getFormationPos(i, basePos, dir, rowSize, entSpace)
             local soul = self:getRandomSoul(soldierType)
-            local name = "PreviewEntity_"
+            local name = "wPreviewEntity_"
 
             while System.GetEntityByName(name .. string.format("%03d", spnmr)) ~= nil do
                 spnmr = spnmr + 1
@@ -97,7 +101,7 @@ function Warfare:spawnPreview()
             name = name .. string.format("%03d", spnmr)
             spnmr = spnmr + 1
 
-            local spawnedEntity = self.spawnSoldier(name, soul, spawnPos, true, soldierType, faction)
+            local spawnedEntity = self.spawnSoldier(name, soul, spawnPos, true, soldierType, faction, 0)
 
             self:equipEntity(spawnedEntity, false)
             spawnedEntity:SetAngles({0, 0, ang - math.pi})

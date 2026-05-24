@@ -1,0 +1,18 @@
+<profile version="0" mergeMode="append">
+	<actionmap name="warfare_action" priority="pure_include" exclusivity="0">
+		<action name="warfare_preview_keyboard" onPress="1" onRelease="0" keyboard="f2" />
+		<action name="warfare_fight_keyboard" onPress="1" onRelease="0" keyboard="f3" />
+		<action name="warfare_despawn_keyboard" onPress="1" onRelease="0" keyboard="f10" />
+
+		<action name="warfare_spawn_keyboard" onPress="1" onRelease="0" keyboard="mouse1" />
+		<action name="warfare_changeType_keyboard" onPress="1" onRelease="0" keyboard="mouse2" />
+		<action name="warfare_changeCoat_keyboard" onPress="1" onRelease="0" keyboard="q" />
+		<action name="warfare_changeFaction_keyboard" onPress="1" onRelease="0" keyboard="f" />
+		
+		<action name="warfare_num_add_keyboard" onPress="1" onRelease="0" keyboard="mwheel_up" />
+		<action name="warfare_num_sub_keyboard" onPress="1" onRelease="0" keyboard="mwheel_down" />
+
+		<action name="warfare_shift_keyboard" onPress="1" onRelease="1" keyboard="lshift" />
+		<action name="warfare_control_keyboard" onPress="1" onRelease="1" keyboard="lctrl" />
+	</actionmap>
+</profile>

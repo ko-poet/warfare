@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="barbora" xsi:noNamespaceSchemaLocation="item.xsd">
+    <ItemClasses version="8">
+        <MiscItem Type="5" SubType="0" IconId="loot_sackOfNails" UIInfo="ui_in_common_sackOfNails" UIName="ui_nm_common_sackOfNails" Model="manmade/task_specific_props/construction/nails_bag_a.cgf" Weight="1.2" Price="120" FadeCoef="1.111111" VisibilityCoef="1" Id="3b023aac-4ec0-0001-bed3-ae906a3c1c21" Name="loot_sackOfNails" />
+        <MiscItem Type="5" SubType="0" IconId="loot_sackOfNails" UIInfo="ui_in_common_sackOfNails" UIName="ui_nm_common_sackOfNails" Model="manmade/task_specific_props/construction/nails_bag_a.cgf" Weight="1.2" Price="120" FadeCoef="1.111111" VisibilityCoef="1" Id="3b023aac-4ec0-0002-bed3-ae906a3c1c21" Name="loot_sackOfNails" />
+    </ItemClasses>
+</database>

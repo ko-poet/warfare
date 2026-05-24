@@ -4,7 +4,7 @@
   <rules>
     <rule name="soul_warfare_test">
       <selectors>
-        <hasName name="soul_warfare_1" />
+        <hasName name="soul_warfare" />
       </selectors>
       <operations>
         <addRole name="WARFARE_SOLDIER_1" />

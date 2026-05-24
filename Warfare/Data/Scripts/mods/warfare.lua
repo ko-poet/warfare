@@ -115,6 +115,11 @@ Warfare = Warfare or {
         "Semine",
     },
 
+    Tokens = {
+        cmdFollow = "3b023aac-4ec0-0001-bed3-ae906a3c1c21",
+        cmdHold = "3b023aac-4ec0-0002-bed3-ae906a3c1c21",
+    },
+
     Settings = {
         faction = 1,
         numSpawns = 10,
@@ -141,10 +146,16 @@ Warfare = Warfare or {
     BattleEntities = {},
     SavedEntities = {},
 
-    ChatTarget = nil,
+    isChatting = false,
+    chatUpdate = false,
+    chatTarget = nil,
+    command = nil,
+
     fight = false,
 }
 
+--used to avoid repeatedly overwriting functions when reloading
+_G.dev = true
 
 --store old functions, don't overwrite player.lua and NPC.lua for compatibility 
 local _NPC_OnSave = NPC.OnSave
@@ -262,8 +273,8 @@ function Player:OnAction(action, activation, value)
         end
     end
 
-    if _Player_OnAction then
-        --return _Player_OnAction(self, action, activation, value)
+    if _Player_OnAction and not _G.dev  then
+        return _Player_OnAction(self, action, activation, value)
     end
 end
 
@@ -272,8 +283,8 @@ function NPC:OnLoad(saveData)
 		self.Properties.WarfareProperties = saveData.WarfareProperties
         table.insert(Warfare.SavedEntities, self)
 	end
-    if _NPC_OnLoad then
-        --return _NPC_OnLoad(self, saveData)
+    if _NPC_OnLoad and not _G.dev then
+        return _NPC_OnLoad(self, saveData)
     end
 end
 
@@ -281,11 +292,38 @@ function NPC:OnSave(saveData)
 	if self.Properties.WarfareProperties  and not self.Properties.WarfareProperties.isPreview then
 		saveData.WarfareProperties = self.Properties.WarfareProperties
 	end
-    if _NPC_OnSave then
-        --return _NPC_OnSave(self, saveData)
+    if _NPC_OnSave and not _G.dev then
+        return _NPC_OnSave(self, saveData)
     end
 end
 
+function Warfare:inventoryLoop()
+    if player and player.inventory and self.isChatting and self.chatTarget then
+        local followCount = player.inventory:GetCountOfClass(self.Tokens.cmdFollow)
+        local holdCount = player.inventory:GetCountOfClass(self.Tokens.cmdHold)
+
+        if followCount and followCount > 0 then
+            player.inventory:DeleteItemOfClass(self.Tokens.cmdFollow, followCount)
+            self:giveCommand("follow", self.chatTarget)
+        elseif holdCount and holdCount > 0 then
+            player.inventory:DeleteItemOfClass(self.Tokens.cmdHold, holdCount)
+            self:giveCommand("hold", self.chatTarget)
+        end
+    end
+    Script.SetTimerForFunction(100, "Warfare.inventoryLoop", self)
+end
+
+function Warfare:chatLoop()
+    if self.chatUpdate then
+        self.isChatting = true
+        self.log(self.isChatting)
+    else
+        self.isChatting = false
+    end
+
+    self.chatUpdate = false
+    Script.SetTimerForFunction(200, "Warfare.chatLoop", self)
+end
 
 function Warfare:OnGameplayStarted()
     System.LogAlways(string.format("$5[Warfare] Loading..."))
@@ -303,8 +341,9 @@ function Warfare:OnGameplayStarted()
     else
         self.log("Failed to load keybinds")
     end
+
     --#Warfare.log(#Warfare.SavedEntities)
-    System.ExecuteCommand("WH_AI_LOD_MaxCountDetail = 185")
+    System.SetCVar("WH_AI_LOD_MaxCountDetail", 185)
     System.SetCVar("t_scale", 1)
 
     self.fight = false
