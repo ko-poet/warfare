@@ -118,6 +118,7 @@ Warfare = Warfare or {
     Tokens = {
         cmdFollow = "3b023aac-4ec0-0001-bed3-ae906a3c1c21",
         cmdHold = "3b023aac-4ec0-0002-bed3-ae906a3c1c21",
+        cmdAttack = "3b023aac-4ec0-0003-bed3-ae906a3c1c21",
     },
 
     Settings = {
@@ -301,6 +302,7 @@ function Warfare:inventoryLoop()
     if player and player.inventory and self.isChatting and self.chatTarget then
         local followCount = player.inventory:GetCountOfClass(self.Tokens.cmdFollow)
         local holdCount = player.inventory:GetCountOfClass(self.Tokens.cmdHold)
+        local attackCount = player.inventory:GetCountOfClass(self.Tokens.cmdAttack)
 
         if followCount and followCount > 0 then
             player.inventory:DeleteItemOfClass(self.Tokens.cmdFollow, followCount)
@@ -308,6 +310,9 @@ function Warfare:inventoryLoop()
         elseif holdCount and holdCount > 0 then
             player.inventory:DeleteItemOfClass(self.Tokens.cmdHold, holdCount)
             self:giveCommand("hold", self.chatTarget)
+        elseif attackCount and attackCount > 0 then
+            player.inventory:DeleteItemOfClass(self.Tokens.cmdAttack, attackCount)
+            self:giveCommand("attack", self.chatTarget)
         end
     end
     Script.SetTimerForFunction(100, "Warfare.inventoryLoop", self)
@@ -316,7 +321,6 @@ end
 function Warfare:chatLoop()
     if self.chatUpdate then
         self.isChatting = true
-        self.log(self.isChatting)
     else
         self.isChatting = false
     end
@@ -342,7 +346,6 @@ function Warfare:OnGameplayStarted()
         self.log("Failed to load keybinds")
     end
 
-    --#Warfare.log(#Warfare.SavedEntities)
     System.SetCVar("WH_AI_LOD_MaxCountDetail", 185)
     System.SetCVar("t_scale", 1)
 
@@ -356,8 +359,10 @@ function Warfare:OnGameplayStarted()
     self:addFaction("Semine")
 
     self:loadEntities(self.SavedEntities)
+    --self:addPlayerToBattle() --fix
 
-    self:addPlayerToBattle()
+    Warfare:chatLoop()
+    Warfare:inventoryLoop()
 
     self.log("Ready")
 

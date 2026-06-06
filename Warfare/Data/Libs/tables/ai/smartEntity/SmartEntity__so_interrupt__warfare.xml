@@ -12,6 +12,10 @@
                     <TreeLocation FileName="warfare_visor.xml" TreeName="warfare_visor" />
                 </SmartBehaviorTemplate>
 
+                <SmartBehaviorTemplate InitialState="Enabled" MaxInstances="-1" Name="warfare_follow" PreventsMonsterLod="true">
+                    <TreeLocation FileName="warfare_follow.xml" TreeName="warfare_follow" />
+                </SmartBehaviorTemplate>
+
             </BehaviorTemplates>
         </SmartEntityTemplate>
     </SmartEntitys>

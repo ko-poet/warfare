@@ -156,7 +156,9 @@ end
 function Warfare:getFreeUnit(faction)
     if not faction then return end
 
+    self.BattleEntities[faction] = self.BattleEntities[faction] or {}
     local factionTbl = self.BattleEntities[faction]
+
     local unit = #factionTbl + 1
     factionTbl[unit] = {}
     return unit

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="brambora">
 	<Skald>
-		<Gameplay Name="battle_barks" VoiceNamespace="true">
+		<Gameplay Name="battle_barks" VoiceNamespace="true" IsSavedInRecoveryMode="true">
 			<Definitions>
 				<Definition File="battle_barks/strelci_pod_hradbou_idle_barky.xml" />
 				<Definition File="battle_barks/sekernici_idle_barky.xml" />
@@ -13,16 +13,21 @@
 				<Definition File="battle_barks/wfchat1.xml" />
 			</Definitions>
 			<Nodes>
-				<Function Name="addbuff2" PositionY="270" PositionX="-290" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Constant Name="Buff" Value="0c903899-fcc9-4cf2-9ee3-1130ac08b0fc" />
+				<EventFunction Name="createplayerreward4" PositionY="60" PositionX="-520" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+					<Constant Name="ItemClass" Value="3b023aac-4ec0-0001-bed3-ae906a3c1c21" />
+					<Constant Name="ShowUINotification" Value="false" />
 					<Edge From="wfchat1.wfollow" To="Exec" />
-				</Function>
-				<Function Name="addbuff2_1" PositionY="520" PositionX="-290" MethodName="wh::rpgmodule::AddBuff" DeclaringType="wh::rpgmodule">
-					<Asset Name="Souls" Alias="player" />
-					<Constant Name="Buff" Value="57095908-1351-40a3-b8c2-c3f8216b77ad" />
+				</EventFunction>
+				<EventFunction Name="createplayerreward4_1" PositionY="390" PositionX="-520" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+					<Constant Name="ItemClass" Value="3b023aac-4ec0-0002-bed3-ae906a3c1c21" />
+					<Constant Name="ShowUINotification" Value="false" />
 					<Edge From="wfchat1.whold" To="Exec" />
-				</Function>
+				</EventFunction>
+				<EventFunction Name="createplayerreward5" PositionY="710" PositionX="-520" MethodName="wh::entitymodule::CreatePlayerReward" DeclaringType="wh::entitymodule">
+					<Constant Name="ItemClass" Value="3b023aac-4ec0-0003-bed3-ae906a3c1c21" />
+					<Constant Name="ShowUINotification" Value="false" />
+					<Edge From="wfchat1.wattack" To="Exec" />
+				</EventFunction>
 				<nosic_zebriku_poklada_zebrik Name="nosic_zebriku_poklada_zebrik" PositionY="970" PositionX="0" />
 				<prazane_pod_hradbou_cekaji_na_zebrik Name="prazane_pod_hradbou_cekaji_na_zebrik" PositionY="800" PositionX="0" />
 				<prazsky_velitel_krici_ze_zadni_rady Name="prazsky_velitel_krici_ze_zadni_rady" PositionY="220" PositionX="0" />
@@ -30,8 +35,11 @@
 				<strelci_pod_hradbou_idle_barky Name="strelci_pod_hradbou_idle_barky" PositionY="-130" PositionX="0" />
 				<vojaci_se_stahuji Name="vojaci_se_stahuji" PositionY="590" PositionX="0" />
 				<vojak_v_bitve_utika Name="vojak_v_bitve_utika" PositionY="400" PositionX="0" />
-				<wfchat1 Name="wfchat1" PositionY="330" PositionX="-770" />
+				<wfchat1 Name="wfchat1" PositionY="320" PositionX="-910" />
 			</Nodes>
+			<Assets>
+				<ItemAsset Name="wFollow" />
+			</Assets>
 			<Text StringName="battle_barks_NxF0" Text="Battle barks" />
 			<Elements>
 				<GameplayActionElement>

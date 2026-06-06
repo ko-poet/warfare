@@ -9,8 +9,8 @@
 				<Port Name="whold" Direction="Out" Type="trigger">
 					<DesignName StringName="wfchat1_whold_kVrp" Text="wHold" />
 				</Port>
-				<Port Name="wenter" Direction="Out" Type="trigger">
-					<DesignName StringName="wfchat1_wenter_S94m" Text="wEnter" />
+				<Port Name="wattack" Direction="Out" Type="trigger">
+					<DesignName StringName="wfchat1_wattack_Ipjm" Text="wAttack" />
 				</Port>
 			</Ports>
 			<Text StringName="wfchat1_h4gL" Text="wfChat1" />
@@ -19,7 +19,7 @@
 					<Sequences>
 						<Sequence EndType="EndDialogue" Name="seq2">
 							<DesignName StringName="wfchat1_seq2_iUEF" Text="seq2" />
-							<UiPrompt StringName="ui_wfchat1_seq2_HGbh" Text="Follow Me!" />
+							<UiPrompt StringName="ui_wfchat1_seq2_HGbh" Text="Follow me!" />
 							<Triggers>
 								<Port Name="wfollow" />
 							</Triggers>
@@ -35,13 +35,28 @@
 						</Sequence>
 						<Sequence EndType="EndDialogue" Name="seq3">
 							<DesignName StringName="wfchat1_seq3_DhRk" Text="seq3" />
-							<UiPrompt StringName="ui_wfchat1_seq3_R7fM" Text="Hold!" />
+							<UiPrompt StringName="ui_wfchat1_seq3_R7fM" Text="Hold the line!" />
 							<Triggers>
 								<Port Name="whold" />
 							</Triggers>
 							<Elements>
 								<Response Role="HENRY">
 									<Text StringName="wfch_henry__wnBr" Text="" />
+									<Commands>
+										<CameraCommand />
+									</Commands>
+								</Response>
+							</Elements>
+						</Sequence>
+						<Sequence EndType="EndDialogue" Name="seq4">
+							<DesignName StringName="wfchat1_seq4_qjOx" Text="seq4" />
+							<UiPrompt StringName="ui_wfchat1_seq4_EZkx" Text="Attack!" />
+							<Triggers>
+								<Port Name="wattack" />
+							</Triggers>
+							<Elements>
+								<Response Role="HENRY">
+									<Text StringName="wfch_henry__qw3r" Text="" />
 									<Commands>
 										<CameraCommand />
 									</Commands>

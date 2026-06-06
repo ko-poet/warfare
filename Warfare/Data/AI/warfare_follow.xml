@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<BehaviorTrees>
+	<BehaviorTree name="warfare_follow" is_function="0">
+		<Variables>
+			<Variable name="exit" type="_bool" values="false" isPersistent="0" form="single" />
+		</Variables>
+		<Root OneTimeOnly="false" FailState="Recoverable" saveVersion="2">
+			<Behavior canSkip="1">
+				<Sequence>
+					<ExecuteLua code="Warfare.brainLog(entity, &quot;follow&quot;)" />
+					<Parallel successMode="Any" failureMode="Any">
+						<Loop count="-1">
+							<CrimeFollower Target="$__player" Mode="Default" Role="Assist" RelativeSpeedLimit="Dash" DisableGhosting="false" />
+						</Loop>
+						<Loop count="-1">
+							<Sequence>
+								<ExecuteLua code="if Warfare.getCommand(entity) ~= &quot;follow&quot; then &#10;data.exit = true &#10;end &#10; &#10;entity.human:DrawWeapon()" />
+								<IfCondition failOnCondition="false" condition="$exit">
+									<Fail />
+								</IfCondition>
+								<Wait duration="&apos;200&apos;" timeType="GameTime" doFail="false" variation="&apos;20&apos;" />
+							</Sequence>
+						</Loop>
+					</Parallel>
+				</Sequence>
+			</Behavior>
+		</Root>
+		<ForestContainer>
+			<ContinuousSwitch>
+				<IfCondition failOnCondition="false" condition="~$updateRole" />
+				<IfCondition failOnCondition="false" condition="true">
+					<Expression expressions="$updateRole = false" />
+				</IfCondition>
+			</ContinuousSwitch>
+		</ForestContainer>
+		<EditorData EventSet="">
+			<Variables>
+				<Variable name="exit" comment="" />
+			</Variables>
+			<ForwardDeclarations />
+			<Root editorPosX="-300" editorPosY="40" hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+				<OutputBreakpoints />
+				<Behavior>
+					<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</ExecuteLua>
+						<Parallel hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+							<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<CrimeFollower hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+								</CrimeFollower>
+							</Loop>
+							<Loop hasInputBreakpoint="0" comment="" breakpointFlags="0">
+								<OutputBreakpoints />
+								<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+									<OutputBreakpoints />
+									<ExecuteLua hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</ExecuteLua>
+									<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+										<Fail hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Fail>
+									</IfCondition>
+									<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
+										<OutputBreakpoints />
+									</Wait>
+								</Sequence>
+							</Loop>
+						</Parallel>
+					</Sequence>
+				</Behavior>
+			</Root>
+			<Forest>
+				<ContinuousSwitch editorPosX="370" editorPosY="-300" hasInputBreakpoint="0" comment="" breakpointFlags="0">
+					<OutputBreakpoints />
+					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+					</IfCondition>
+					<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+						<OutputBreakpoints />
+						<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+							<OutputBreakpoints />
+						</Expression>
+					</IfCondition>
+				</ContinuousSwitch>
+			</Forest>
+			<Comments />
+		</EditorData>
+	</BehaviorTree>
+</BehaviorTrees>

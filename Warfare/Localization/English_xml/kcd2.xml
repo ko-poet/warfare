@@ -1,5 +1,30 @@
 <?xml version="1.0"?>
 <Table xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <Row>
+    <Cell>wfch_henry__19Bf</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>wfch_bara__89FT</Cell>
+    <Cell />
+    <Cell />
+  </Row>
+  <Row>
+    <Cell>wfch_henry__mhV6</Cell>
+    <Cell />
+    <Cell>Follow me!</Cell>
+  </Row>
+  <Row>
+    <Cell>wfch_henry__wnBr</Cell>
+    <Cell />
+    <Cell>Hold the line!</Cell>
+  </Row>
+  <Row>
+    <Cell>wfch_henry__qw3r</Cell>
+    <Cell />
+    <Cell>Attack!</Cell>
+  </Row>
   <Row>
     <Cell>hledani_k_quest_done_SaMv</Cell>
     <Cell />
@@ -53,12 +78,12 @@
   <Row>
     <Cell>ui_wfchat1_seq2_HGbh</Cell>
     <Cell />
-    <Cell>Follow Me!</Cell>
+    <Cell>Follow me!</Cell>
   </Row>
   <Row>
     <Cell>ui_wfchat1_seq3_R7fM</Cell>
     <Cell />
-    <Cell>Hold!</Cell>
+    <Cell>Hold the line!</Cell>
   </Row>
   <Row>
     <Cell>wfchat1_wfollow_REfX</Cell>
@@ -79,5 +104,20 @@
     <Cell>wfchat1_wenter_S94m</Cell>
     <Cell />
     <Cell>wEnter</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_wattack_Ipjm</Cell>
+    <Cell />
+    <Cell>wAttack</Cell>
+  </Row>
+  <Row>
+    <Cell>wfchat1_seq4_qjOx</Cell>
+    <Cell />
+    <Cell>seq4</Cell>
+  </Row>
+  <Row>
+    <Cell>ui_wfchat1_seq4_EZkx</Cell>
+    <Cell />
+    <Cell>Attack!</Cell>
   </Row>
 </Table>

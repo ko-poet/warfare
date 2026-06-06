@@ -31,8 +31,8 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
     local unit = self:getFreeUnit(faction)
 
     for i = 1, numSpawns do
-        local name = "wBattleEntity_"
-        local soul = self.getRandomSoul(soldierType)
+        local name = "SpawnedEntity_"
+        local soul = self:getRandomSoul(soldierType)
         local spawnPos = self:getFormationPos(i, basePos, dir, rowSize, entSpace)
 
         while System.GetEntityByName(name .. string.format("%03d", spnmr)) ~= nil do
@@ -53,7 +53,7 @@ function Warfare:spawnUnit(soldierType, faction, numSpawns, rowSize, entSpace)
         end
 
         Warfare:addEntity(spawnedEntity)
-       -- table.insert(self.SpawnedEntities, spawnedEntity)
+        table.insert(self.SpawnedEntities, spawnedEntity)
 
         spawned = spawned + 1
     end

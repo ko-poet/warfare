@@ -174,6 +174,23 @@ function WDebug:drawEntText(ent)
     System.DrawText(base.x, base.y + 10, ent.class, 1.5, 1, 1, 1)
 end
 
+function WDebug:drawWarfareInfo()
+    local entities = System.GetEntities(player:GetPos(), 10)
+
+    for i, ent in pairs(entities) do
+        if ent.Properties.WarfareProperties then
+            local pos = ent:GetWorldPos()
+            local basePos = System.ProjectToScreen({pos.x, pos.y, pos.z + 1})
+            local base = self.viewportToScreen(basePos)
+
+            if self.IsInFrontOfCamera(pos) then
+                System.DrawText(base.x, base.y, Warfare.getUnit(ent), 1.5, 1, 1, 1)
+            end
+        end
+    end
+
+    Script.SetTimerForFunction(5, "WDebug.drawWarfareInfo", self)
+end
 
 function WDebug:debugDraw()
     local entities = System.GetEntities(player:GetPos(), 10)

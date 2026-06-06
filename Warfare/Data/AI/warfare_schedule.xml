@@ -3,7 +3,9 @@
 	<BehaviorTree name="onUpdate" is_function="0">
 		<Variables>
 			<Variable name="attackData" type="switch:interruptData:attack" values="" isPersistent="0" form="single" />
+			<Variable name="command" type="_string" values="attack" isPersistent="0" form="single" />
 			<Variable name="fight" type="_bool" values="false" isPersistent="0" form="single" />
+			<Variable name="isFollowing" type="_bool" values="false" isPersistent="0" form="single" />
 			<Variable name="mrkev" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="target" type="_wuid" values="" isPersistent="0" form="single" />
 			<Variable name="visorDown" type="_bool" values="false" isPersistent="0" form="single" />
@@ -13,15 +15,15 @@
 				<Parallel successMode="Any" failureMode="Any">
 					<Loop count="-1">
 						<Sequence>
-							<ExecuteLua code="data.fight = Warfare.fight &#10;data.visorDown = Warfare.getVisor(entity)" />
+							<ExecuteLua code="data.fight = Warfare.fight &#10;data.visorDown = Warfare.getVisor(entity) &#10;data.command = Warfare.getCommand(entity)" />
 							<IfCondition failOnCondition="false" condition="$visorDown">
 								<Sequence>
 									<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="87643362" />
 									<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_visor&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
-									<ExecuteLua code="Warfare.setVisor(entity, false) &#10;data.visorDown = false &#10;Warfare:brainLog(entity, &quot;Visor down&quot;)" />
+									<ExecuteLua code="Warfare.setVisor(entity, false) &#10;data.visorDown = false &#10;Warfare.brainLog(entity, &quot;Visor down&quot;)" />
 								</Sequence>
 							</IfCondition>
-							<IfCondition failOnCondition="false" condition="$fight">
+							<IfCondition failOnCondition="false" condition="$fight &amp; $command == &apos;attack&apos; | $command == &apos;hold&apos;">
 								<EntityContextCheck context="crime_interruptAttack" target="$this.id" saveVersion="2">
 									<Else canSkip="1">
 										<Sequence>
@@ -29,7 +31,7 @@
 											<ExecuteLua code="data.target = Warfare:getClosestTarget(entity, Warfare.SpawnedEntities).this.id" />
 											<IfCondition failOnCondition="false" condition="$target ~= $__null">
 												<Sequence>
-													<ExecuteLua code="Warfare:brainLog(entity, &quot;Calling attack&quot;)" />
+													<ExecuteLua code="Warfare.brainLog(entity, &quot;Calling attack&quot;)" />
 													<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="25225112" />
 													<Expression expressions="$attackData.target = $target" />
 													<AddInterrupt_attack attackData="$attackData" Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_attack&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
@@ -39,27 +41,41 @@
 									</Else>
 								</EntityContextCheck>
 							</IfCondition>
-							<Wait duration="&apos;200&apos;" timeType="GameTime" doFail="false" variation="&apos;30&apos;" />
+							<IfElseCondition failOnCondition="false" condition="$command == &apos;follow&apos;" saveVersion="2">
+								<Then canSkip="1">
+									<IfCondition failOnCondition="false" condition="~$isFollowing">
+										<Sequence>
+											<Expression expressions="$isFollowing = true" />
+											<Function_crime_getMrkev mrkev="$mrkev" nodeLabel="81908158" />
+											<AddInterrupt Target="$this.id" Host="$mrkev" Behavior="&apos;warfare_follow&apos;" Priority="160" IgnorePriorityOnPreviousInterrupt="true" urgency="Fast" Aliveness="Alive" Privileged="false" FastForward="false" />
+										</Sequence>
+									</IfCondition>
+								</Then>
+								<Else canSkip="1">
+									<Expression expressions="$isFollowing = false" />
+								</Else>
+							</IfElseCondition>
+							<Wait duration="&apos;100&apos;" timeType="GameTime" doFail="false" variation="&apos;10&apos;" />
 						</Sequence>
 					</Loop>
 					<Loop count="-1">
 						<Sequence>
 							<DialogGate Who="$this.id" Negation="false" EndDialogInRoot="false" Condition="InChat" RunLogic="KeepRunning">
-								<ExecuteLua code="Warfare:brainLog(entity, &quot;Chatting&quot;)" />
+								<ExecuteLua code="Warfare.brainLog(entity, &quot;Chatting&quot;) &#10;Warfare:setChatTarget(entity)" />
 							</DialogGate>
-							<Wait duration="&apos;50&apos;" timeType="GameTime" doFail="false" variation="&apos;10&apos;" />
+							<Wait duration="&apos;100&apos;" timeType="GameTime" doFail="false" variation="&apos;10&apos;" />
 						</Sequence>
 					</Loop>
 				</Parallel>
 			</Behavior>
 		</Root>
-		<ForestContainer>
-			<SuppressFailure />
-		</ForestContainer>
+		<ForestContainer />
 		<EditorData EventSet="">
 			<Variables>
 				<Variable name="attackData" comment="" />
+				<Variable name="command" comment="" />
 				<Variable name="fight" comment="" />
+				<Variable name="isFollowing" comment="" />
 				<Variable name="mrkev" comment="" />
 				<Variable name="target" comment="" />
 				<Variable name="visorDown" comment="" />
@@ -127,6 +143,31 @@
 										</Else>
 									</EntityContextCheck>
 								</IfCondition>
+								<IfElseCondition hasInputBreakpoint="0" comment="" breakpointFlags="0" saveVersion="2">
+									<OutputBreakpoints />
+									<Then>
+										<IfCondition hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+											<Sequence hasInputBreakpoint="0" comment="" breakpointFlags="0">
+												<OutputBreakpoints />
+												<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Expression>
+												<Function_crime_getMrkev hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</Function_crime_getMrkev>
+												<AddInterrupt hasInputBreakpoint="0" comment="" breakpointFlags="0">
+													<OutputBreakpoints />
+												</AddInterrupt>
+											</Sequence>
+										</IfCondition>
+									</Then>
+									<Else>
+										<Expression hasInputBreakpoint="0" comment="" breakpointFlags="0">
+											<OutputBreakpoints />
+										</Expression>
+									</Else>
+								</IfElseCondition>
 								<Wait hasInputBreakpoint="0" comment="" breakpointFlags="0">
 									<OutputBreakpoints />
 								</Wait>
@@ -150,15 +191,8 @@
 					</Parallel>
 				</Behavior>
 			</Root>
-			<Forest>
-				<SuppressFailure editorPosX="-1230" editorPosY="-30" hasInputBreakpoint="0" comment="" breakpointFlags="0">
-					<OutputBreakpoints />
-				</SuppressFailure>
-			</Forest>
-			<Comments>
-				<Comment text="call_attack" posX="50" posY="-40" width="420" height="537" resizeBorderWidth="420" resizeBorderHeight="510" color="0.65,0.65,0.65" author="Admin" />
-				<Comment text="visor_down" posX="-560" posY="-360" width="400" height="417" resizeBorderWidth="400" resizeBorderHeight="390" color="0.65,0.65,0.65" author="" />
-			</Comments>
+			<Forest />
+			<Comments />
 		</EditorData>
 	</BehaviorTree>
 </BehaviorTrees>
